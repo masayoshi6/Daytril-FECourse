@@ -55,6 +55,10 @@ p {
   padding: 0 20px;
 }
 
+
+#ids{
+  color: red;
+}
 .main {
   margin-top: 30px;
 }
