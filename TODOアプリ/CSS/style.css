@@ -1,0 +1,18 @@
+.new-todo {
+    display: flex;
+}
+
+.new-todo input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
