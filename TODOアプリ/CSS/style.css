@@ -2,8 +2,8 @@
     display: flex;
 }
 
-.new-todo input {
-    flex: 1;
+.new-todo > div {
+    /* flex: 1; */
     padding: 10px;
     font-size: 16px;
 }
