@@ -16,3 +16,19 @@
     border: none;
     cursor: pointer;
 }
+
+.todoList {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #e83434;
+}
+
+.todoList th, .todoList td {
+    border: 1px solid #e83434;
+    padding: 8px;
+    text-align: center;
+}
+
+.thead {
+    background-color: #858181;
+}
