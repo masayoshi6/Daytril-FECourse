@@ -16,17 +16,14 @@ const getTodoList = () => {
   });
 };
 
-//次に、既存のTODOリストをクリアするたえのアロー関数を作成します。これにより、新しいTODOリストを表示する前に、古いTODOリストが削除されます。
-const clearTodoList = () => {
+//次に、既存のTODOリストをクリアし、新たにtodo一覧を表示するためのアロー関数を作成します。
+const newTodoList = () => {
   while (document.getElementById("todo-list").firstChild) {
     document
       .getElementById("todo-list")
       .removeChild(document.getElementById("todo-list").firstChild);
   }
-};
 
-// 最後に、新しいTODOリストを表示するためのアロー関数を追加します。
-const displayTodoList = () => {
   new_todoList.forEach((todo) => {
     const todoListElement = document.createElement("td");
     todoListElement.textContent = todo.listItem;
@@ -54,10 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // TODOリストを取得
     getTodoList();
 
-    // 既存のTODOリストをクリア
-    clearTodoList();
+    // 既存のTODOリストをクリアし、新たにTODOリストを表示
+    newTodoList();
 
-    // 新しいTODOリストを表示
-    displayTodoList();
   });
 });
