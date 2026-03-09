@@ -54,5 +54,39 @@ document.addEventListener("DOMContentLoaded", () => {
     // 既存のTODOリストをクリアし、新たにTODOリストを表示
     newTodoList();
 
+    const filterInput = document.getElementById("filter");
+    filterInput.addEventListener("input", () => {
+      const filterValue = filterInput.value.toLowerCase();
+      const filteredTodoList = new_todoList.filter((todo) =>
+        todo.listItem.toLowerCase().includes(filterValue)
+      );
+
+      // フィルタリングされたTODOリストを表示
+      while (document.getElementById("todo-list").firstChild) {
+        document
+          .getElementById("todo-list")
+          .removeChild(document.getElementById("todo-list").firstChild);
+      }
+
+      filteredTodoList.forEach((todo) => {
+        const todoListElement = document.createElement("td");
+        todoListElement.textContent = todo.listItem;
+        document.getElementById("todo-list").appendChild(todoListElement);
+
+        const titleElement = document.createElement("td");
+        titleElement.textContent = todo.title;
+        document.getElementById("todo-list").appendChild(titleElement);
+
+        const limitElement = document.createElement("td");
+        limitElement.textContent = todo.limit;
+        document.getElementById("todo-list").appendChild(limitElement);
+
+        const trElement = document.createElement("tr");
+        trElement.appendChild(todoListElement);
+        trElement.appendChild(titleElement);
+        trElement.appendChild(limitElement);
+        document.getElementById("todo-list").appendChild(trElement);
+      });
+    });
   });
 });
