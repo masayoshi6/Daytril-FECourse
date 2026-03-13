@@ -37,10 +37,24 @@ const newTodoList = () => {
     limitElement.textContent = todo.limit;
     document.getElementById("todo-list").appendChild(limitElement);
 
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "削除";
+    deleteButton.addEventListener("click", () => {
+      const index = new_todoList.indexOf(todo);
+      if (index > -1) {
+        new_todoList.splice(index, 1);
+        newTodoList();
+      }
+    });
+    const deleteElement = document.createElement("td");
+    deleteElement.appendChild(deleteButton);
+    document.getElementById("todo-list").appendChild(deleteElement);
+
     const trElement = document.createElement("tr");
     trElement.appendChild(todoListElement);
     trElement.appendChild(titleElement);
     trElement.appendChild(limitElement);
+    trElement.appendChild(deleteElement);
     document.getElementById("todo-list").appendChild(trElement);
   });
 };
