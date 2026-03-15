@@ -48,7 +48,6 @@ const newTodoList = () => {
     });
     const deleteElement = document.createElement("td");
     deleteElement.appendChild(deleteButton);
-    document.getElementById("todo-list").appendChild(deleteElement);
 
     const trElement = document.createElement("tr");
     trElement.appendChild(todoListElement);
