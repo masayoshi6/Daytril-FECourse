@@ -5,16 +5,21 @@ const getTodoList = () => {
   const todoList = document.getElementById("new-todo");
   const titleInput = document.getElementById("new-placedent");
   const limitInput = document.getElementById("lim");
-  const listItem = todoList.value;
-  const title = titleInput.value;
-  const limit = limitInput.value;
+  const listItem = todoList.value.trim();
+  const title = titleInput.value.trim();
+  const limit = limitInput.value.trim();
+
+  if (listItem === "" || title === "" || limit === "") {
+    alert("TODOリスト、タイトル、期限を入力してください。");
+    return;
+  }
 
   new_todoList.push({
     listItem: listItem,
     title: title,
     limit: limit,
   });
-  todoList.value = '';
+  todoList.value = "";
   titleInput.value = "";
   limitInput.value = "";
   todoList.focus();
@@ -75,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     filterInput.addEventListener("input", () => {
       const filterValue = filterInput.value.toLowerCase();
       const filteredTodoList = new_todoList.filter((todo) =>
-        todo.listItem.toLowerCase().includes(filterValue)
+        todo.listItem.toLowerCase().includes(filterValue),
       );
 
       // フィルタリングされたTODOリストを表示
