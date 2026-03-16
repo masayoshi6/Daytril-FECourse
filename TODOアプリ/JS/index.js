@@ -14,6 +14,10 @@ const getTodoList = () => {
     title: title,
     limit: limit,
   });
+  todoList.value = '';
+  titleInput.value = "";
+  limitInput.value = "";
+  todoList.focus();
 };
 
 //次に、既存のTODOリストをクリアし、新たにtodo一覧を表示するためのアロー関数を作成します。
