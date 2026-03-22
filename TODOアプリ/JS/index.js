@@ -29,7 +29,7 @@ const getTodoList = () => {
 const applyFilter = () => {
   const filterValue = document.getElementById("filter").value.toLowerCase();
   const filteredList = new_todoList.filter((todo) =>
-    todo.listItem.toLowerCase().includes(filterValue),
+    todo.listItem.toLowerCase().includes(filterValue)
   );
   renderTodoList(filteredList);
 };
