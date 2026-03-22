@@ -25,26 +25,43 @@ const getTodoList = () => {
   todoList.focus();
 };
 
-//次に、既存のTODOリストをクリアし、新たにtodo一覧を表示するためのアロー関数を作成します。
-const newTodoList = () => {
-  while (document.getElementById("todo-list").firstChild) {
-    document
-      .getElementById("todo-list")
-      .removeChild(document.getElementById("todo-list").firstChild);
-  }
+// 現在のフィルター値で絞り込んで描画する
+const applyFilter = () => {
+  const filterValue = document.getElementById("filter").value.toLowerCase();
+  const filteredList = new_todoList.filter((todo) =>
+    todo.listItem.toLowerCase().includes(filterValue),
+  );
+  renderTodoList(filteredList);
+};
 
-  new_todoList.forEach((todo) => {
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("register").addEventListener("click", () => {
+    getTodoList();
+
+    applyFilter(); // 登録時もフィルターを考慮して描画
+  });
+
+  document.getElementById("filter").addEventListener("input", () => {
+    applyFilter();
+  });
+});
+
+// 描画処理を1か所にまとめる
+const renderTodoList = (list) => {
+  const tbody = document.getElementById("todo-list");
+  while (tbody.firstChild) tbody.removeChild(tbody.firstChild);
+
+  list.forEach((todo) => {
+    const trElement = document.createElement("tr");
+
     const todoListElement = document.createElement("td");
     todoListElement.textContent = todo.listItem;
-    document.getElementById("todo-list").appendChild(todoListElement);
 
     const titleElement = document.createElement("td");
     titleElement.textContent = todo.title;
-    document.getElementById("todo-list").appendChild(titleElement);
 
     const limitElement = document.createElement("td");
     limitElement.textContent = todo.limit;
-    document.getElementById("todo-list").appendChild(limitElement);
 
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "削除";
@@ -52,76 +69,17 @@ const newTodoList = () => {
       const index = new_todoList.indexOf(todo);
       if (index > -1) {
         new_todoList.splice(index, 1);
-        newTodoList();
+        applyFilter(); // ← ここが修正のポイント！
       }
     });
+
     const deleteElement = document.createElement("td");
     deleteElement.appendChild(deleteButton);
 
-    const trElement = document.createElement("tr");
     trElement.appendChild(todoListElement);
     trElement.appendChild(titleElement);
     trElement.appendChild(limitElement);
     trElement.appendChild(deleteElement);
-    document.getElementById("todo-list").appendChild(trElement);
+    tbody.appendChild(trElement);
   });
 };
-
-document.addEventListener("DOMContentLoaded", () => {
-  const registerButton = document.getElementById("register");
-  registerButton.addEventListener("click", () => {
-    // TODOリストを取得
-    getTodoList();
-
-    // 既存のTODOリストをクリアし、新たにTODOリストを表示
-    newTodoList();
-
-    const filterInput = document.getElementById("filter");
-    filterInput.addEventListener("input", () => {
-      const filterValue = filterInput.value.toLowerCase();
-      const filteredTodoList = new_todoList.filter((todo) =>
-        todo.listItem.toLowerCase().includes(filterValue),
-      );
-
-      // フィルタリングされたTODOリストを表示
-      while (document.getElementById("todo-list").firstChild) {
-        document
-          .getElementById("todo-list")
-          .removeChild(document.getElementById("todo-list").firstChild);
-      }
-
-      filteredTodoList.forEach((todo) => {
-        const todoListElement = document.createElement("td");
-        todoListElement.textContent = todo.listItem;
-        document.getElementById("todo-list").appendChild(todoListElement);
-
-        const titleElement = document.createElement("td");
-        titleElement.textContent = todo.title;
-        document.getElementById("todo-list").appendChild(titleElement);
-
-        const limitElement = document.createElement("td");
-        limitElement.textContent = todo.limit;
-        document.getElementById("todo-list").appendChild(limitElement);
-
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "削除";
-        deleteButton.addEventListener("click", () => {
-          const index = new_todoList.indexOf(todo);
-          if (index > -1) {
-            new_todoList.splice(index, 1);
-            newTodoList();
-          }
-        });
-        const deleteElement = document.createElement("td");
-        deleteElement.appendChild(deleteButton);
-        const trElement = document.createElement("tr");
-        trElement.appendChild(todoListElement);
-        trElement.appendChild(titleElement);
-        trElement.appendChild(limitElement);
-        trElement.appendChild(deleteElement);
-        document.getElementById("todo-list").appendChild(trElement);
-      });
-    });
-  });
-});
-
